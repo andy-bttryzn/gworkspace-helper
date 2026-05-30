@@ -8,28 +8,28 @@
 // browser the first time you run it.
 //
 // Usage:
-//   node gworkspace.js whoami
-//   node gworkspace.js gmail-search "QUERY" [N]
-//   node gworkspace.js gmail-oldest "QUERY"
-//   node gworkspace.js gmail-get <messageId>
-//   node gworkspace.js gmail-signature
-//   node gworkspace.js gmail-reply-draft <threadId> <bodyFile> [--bcc <addr>] [--to "..."] [--cc "..."]
-//   node gworkspace.js gmail-send-draft <draftId>
-//   node gworkspace.js gmail-thread-label-sync <threadId>
+//   node index.js whoami
+//   node index.js gmail-search "QUERY" [N]
+//   node index.js gmail-oldest "QUERY"
+//   node index.js gmail-get <messageId>
+//   node index.js gmail-signature
+//   node index.js gmail-reply-draft <threadId> <bodyFile> [--bcc <addr>] [--to "..."] [--cc "..."]
+//   node index.js gmail-send-draft <draftId>
+//   node index.js gmail-thread-label-sync <threadId>
 //     ^ propagate user-level labels across all messages in a thread so each
 //       message has the union of labels. System labels (INBOX, SENT, etc.) are
 //       preserved per-message. Idempotent. Reports which labels were added where.
-//   node gworkspace.js gmail-thread-label-swap <threadId> <fromLabelName> <toLabelName>
+//   node index.js gmail-thread-label-swap <threadId> <fromLabelName> <toLabelName>
 //     ^ remove <fromLabelName> and add <toLabelName> across every message in the
 //       thread. Use for status transitions (e.g. 02.waiting/me -> 02.waiting/customer
 //       after sending a reply). Label names must be exact.
-//   node gworkspace.js gmail-thread-bury <threadId>
+//   node index.js gmail-thread-bury <threadId>
 //     ^ FULL BURY. Removes INBOX + 00.received + all 01.priority/* + all 02.waiting/*
 //       from every message in the thread. Keeps zzzVendors/* and 05.events/* so the
 //       thread stays associated with the vendor and event. Use when the thread is
 //       effectively dead and we don't expect a natural reply to revive it. NOT the
 //       same as archive (which only removes INBOX).
-//   node gworkspace.js drive-list [N]
+//   node index.js drive-list [N]
 //
 // For anything beyond these, require() this file and call buildService(api, version).
 
