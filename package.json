@@ -1,0 +1,20 @@
+{
+  "name": "gworkspace-helper",
+  "version": "1.0.0",
+  "description": "Single-user Google Workspace CLI for Gmail / Drive / Calendar / Sheets / Docs.",
+  "main": "index.js",
+  "bin": {
+    "gworkspace": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js whoami"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "google-auth-library": "^9.0.0",
+    "googleapis": "^130.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
