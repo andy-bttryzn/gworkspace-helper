@@ -38,7 +38,15 @@ const path = require('path');
 const http = require('http');
 const { URL } = require('url');
 const crypto = require('crypto');
-const { google } = require('googleapis');
+// googleapis is lazy-loaded so pure-function exports (encodeHeaderRfc2047,
+// SCOPES, etc.) can be required + tested without installing the full
+// googleapis dependency tree. Auth + API calls still require it.
+let _google = null;
+function googleapis() {
+  if (_google) return _google;
+  _google = require('googleapis').google;
+  return _google;
+}
 
 const HERE = __dirname;
 const CRED_PATH = path.join(HERE, 'credentials.json');
@@ -118,7 +126,7 @@ async function runLocalAuthFlow(oAuth2Client) {
 
 async function getAuthClient() {
   const creds = loadCreds();
-  const oAuth2Client = new google.auth.OAuth2(
+  const oAuth2Client = new (googleapis()).auth.OAuth2(
     creds.client_id,
     creds.client_secret,
     creds.redirect_uris ? creds.redirect_uris[0] : 'http://localhost'
@@ -138,7 +146,7 @@ async function getAuthClient() {
 
 async function buildService(api, version) {
   const auth = await getAuthClient();
-  const svc = google[api]({ version, auth });
+  const svc = googleapis()[api]({ version, auth });
   // For Gmail, wrap drafts.send + messages.send with a duplicate-outbound guard.
   // Catches the case where two parallel sessions stage the same outbound on
   // different threadIds and both try to send. The per-thread "no_duplicate_drafts"

@@ -1,5 +1,7 @@
 # gworkspace-helper
 
+![tests](https://github.com/USER/gworkspace-helper/actions/workflows/test.yml/badge.svg)
+
 A single-user Google Workspace CLI helper for Gmail / Drive / Calendar / Sheets / Docs.
 
 Built for one human running ops out of their own inbox: opinionated draft validation, prior-outbound deduping, label-sync, post-send archive, all driven from the terminal. Not a service-account or multi-tenant setup.
@@ -67,6 +69,18 @@ These are all off by default. Set them to turn on the guardrails the original au
 | `GW_PROCESSED_LOG` | Audit log file path | `/var/log/gw_processed.jsonl` |
 
 Every guardrail also has a `--skip-<check>` flag for per-call override.
+
+## Tests
+
+```bash
+npm test
+# or
+node --test tests/
+```
+
+6 tests on the pure-function exports (`encodeHeaderRfc2047`, `SCOPES`). The HTTP-touching commands (`buildService`, `getAuthClient`, `markProcessedWithLog`, etc.) need OAuth + Gmail state and aren't covered here — wrap them in an integration test against a sandbox account if you need that coverage.
+
+`googleapis` is lazy-loaded, so the pure tests run without `npm install`. That keeps unit-test feedback loops fast.
 
 ## What's NOT here
 
