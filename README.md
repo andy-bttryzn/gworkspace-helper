@@ -78,7 +78,7 @@ npm test
 node --test tests/
 ```
 
-6 tests on the pure-function exports (`encodeHeaderRfc2047`, `SCOPES`). The HTTP-touching commands (`buildService`, `getAuthClient`, `markProcessedWithLog`, etc.) need OAuth + Gmail state and aren't covered here — wrap them in an integration test against a sandbox account if you need that coverage.
+6 tests on the pure-function exports (`encodeHeaderRfc2047`, `SCOPES`). The HTTP-touching commands (`buildService`, `getAuthClient`, `markProcessedWithLog`, etc.) need OAuth + Gmail state and aren't covered here; wrap them in an integration test against a sandbox account if you need that coverage.
 
 `googleapis` is lazy-loaded, so the pure tests run without `npm install`. That keeps unit-test feedback loops fast.
 
