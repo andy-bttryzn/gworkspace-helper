@@ -1,7 +1,7 @@
 // Tests for exported pure functions in gworkspace-helper.
 // The HTTP-touching functions (buildService, getAuthClient, markProcessedWithLog,
 // checkPriorOutboundToRecipient, assertNoRecentDuplicateOutbound) are NOT tested
-// here — they need OAuth credentials + real Gmail state. Wrap those in
+// here; they need OAuth credentials + real Gmail state. Wrap those in
 // integration tests against a sandbox account if you need that coverage.
 'use strict';
 
