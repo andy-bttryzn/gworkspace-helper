@@ -63,8 +63,23 @@ const SCOPES = [
 ];
 
 function loadCreds() {
+  if (!fs.existsSync(CRED_PATH)) {
+    throw new Error(
+      `OAuth credentials not found at ${CRED_PATH}\n` +
+      `  1. Create an OAuth client (Desktop type) at https://console.cloud.google.com/apis/credentials\n` +
+      `  2. Download the credentials JSON and save it to the path above\n` +
+      `  3. Re-run the command; a browser tab will open for first-time consent`
+    );
+  }
   const raw = JSON.parse(fs.readFileSync(CRED_PATH, 'utf8'));
-  return raw.installed || raw.web;
+  const creds = raw.installed || raw.web;
+  if (!creds || !creds.client_id || !creds.client_secret) {
+    throw new Error(
+      `OAuth credentials at ${CRED_PATH} are missing client_id/client_secret. ` +
+      `Re-download from the Google Cloud Console (Desktop app type).`
+    );
+  }
+  return creds;
 }
 
 async function runLocalAuthFlow(oAuth2Client) {
