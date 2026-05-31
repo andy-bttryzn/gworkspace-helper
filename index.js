@@ -526,7 +526,7 @@ async function cmdGmailGet(id) {
 // gmail-thread <threadId>
 // Authoritative thread inspection. Returns every message with from/to/cc/date/
 // subject/snippet/labels. USE THIS instead of keyword search when answering
-// "did X reply on thread Y" — keyword searches miss replies that don't contain
+// "did X reply on thread Y"; keyword searches miss replies that don't contain
 // the keyword. Captured 2026-05-04 after I twice used keyword search to check
 // for accounting replies and missed nothing only by luck.
 async function cmdGmailThread(threadId, flagArgs = []) {
@@ -610,7 +610,7 @@ async function cmdGmailSendDraft(draftId) {
 
   // Cockpit sync: immediately resolve the matching action item so the cockpit
   // doesn't show a stale staged-draft card until the next full feed rebuild.
-  // Best-effort — any failure here must NOT break the send result.
+  // Best-effort; any failure here must NOT break the send result.
   let cockpitResolved = null;
   try {
     const { resolveCockpitItemForSend } = require('./_cockpit_resolve_on_send.cjs');
@@ -809,7 +809,7 @@ async function verifyStagedDraft(gmail, { draftId, messageId }) {
 
   if (issues.length > 0) {
     try { await gmail.users.drafts.delete({ userId: 'me', id: draftId }); } catch {}
-    const err = new Error('Draft render lint FAILED — draft deleted. Issues:\n  - ' + issues.join('\n  - '));
+    const err = new Error('Draft render lint FAILED, draft deleted. Issues:\n  - ' + issues.join('\n  - '));
     err.lintIssues = issues;
     throw err;
   }
@@ -1227,7 +1227,7 @@ async function cmdGmailReplyDraft(threadId, bodyFile, flagArgs) {
   // Ownership pre-flight check (opt-in via GW_OWNERSHIP_CHECK=1):
   // When multiple humans on your own domain share inbox-ish workflow, count
   // outbound from each same-domain sender on this thread. If someone else has
-  // more outbound than me, throw — they own the thread and a parallel draft
+  // more outbound than me, throw; they own the thread and a parallel draft
   // is probably a mistake. Override per-call via --skip-ownership-check.
   if (process.env.GW_OWNERSHIP_CHECK === '1' && !flagArgs.includes('--skip-ownership-check')) {
     const myDomainLc = (myEmail.split('@')[1] || '').toLowerCase();
@@ -1332,7 +1332,7 @@ async function cmdGmailReplyDraft(threadId, bodyFile, flagArgs) {
   const prevTextTrimmed =
     prevText.length > 4000 ? prevText.slice(0, 4000) + '\n[... quoted content trimmed ...]' : prevText;
 
-  // build bodies — if bodyText is HTML, derive a plain-text version for the text/plain alternative
+  // build bodies; if bodyText is HTML, derive a plain-text version for the text/plain alternative
   const plainBodyText = looksLikeHtml(bodyText)
     ? bodyText.replace(/<br\s*\/?>/gi, '\n').replace(/<\/(div|p|h[1-6]|li|tr)>/gi, '\n').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\n{3,}/g, '\n\n').trim()
     : bodyText;
