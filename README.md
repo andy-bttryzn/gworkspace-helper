@@ -1,6 +1,6 @@
 # gworkspace-helper
 
-![tests](https://github.com/USER/gworkspace-helper/actions/workflows/test.yml/badge.svg)
+![tests](https://github.com/andy-bttryzn/gworkspace-helper/actions/workflows/test.yml/badge.svg)
 
 A single-user Google Workspace CLI helper for Gmail / Drive / Calendar / Sheets / Docs.
 
