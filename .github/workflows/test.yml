@@ -19,6 +19,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Run tests
-        run: node --test "tests/*.test.js"
+        run: node --test tests/*.test.js
       - name: Validate index.js parses
         run: node --check index.js
